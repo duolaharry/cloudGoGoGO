@@ -21,7 +21,7 @@ def dataPreprocessForHuya(fileDir):
                 tmpratio = tmpstr[1]
                 tmpSet["name"] = tmpname
                 tmpSet["ratio"] = tmpratio
-                tmpSet["num"] = tmpnum
+                tmpSet["people"] = tmpnum
                 numOfPeople.append(tmpSet)
         lines = subDataSet[3].split("\n")
         lines.pop(0)
@@ -34,7 +34,7 @@ def dataPreprocessForHuya(fileDir):
                 tmpratio = tmpstr[3][3:]
                 tmpSet["name"] = tmpname
                 tmpSet["ratio"] = tmpratio
-                tmpSet["num"] = tmpnum
+                tmpSet["popular"] = tmpnum
                 popularityOfChannnel.append(tmpSet)
     print(numOfPeople)
     print(popularityOfChannnel)
@@ -61,7 +61,7 @@ def dataPreprocessForDouyu(fileDir):
             tmpratio = (tmpstr[1].split("\n"))[0]
             tmpSet["name"] = tmpname
             tmpSet["ratio"] = tmpratio
-            tmpSet["num"] = tmpnum
+            tmpSet["people"] = tmpnum
             numOfPeople.append(tmpSet)
         lines = subDataSet[2].split("【")
         lines.pop(0)
@@ -74,17 +74,12 @@ def dataPreprocessForDouyu(fileDir):
             tmpratio = (tmpstr[1].split("\n"))[0]
             tmpSet["name"] = tmpname
             tmpSet["ratio"] = tmpratio
-            tmpSet["num"] = tmpnum
+            tmpSet["popular"] = tmpnum
             popularityOfChannnel.append(tmpSet)
     print(numOfPeople)
     print(popularityOfChannnel)
 
 
 if __name__ == "__main__":
-    sumOfPopular = 16
-    sumOfPopular = 10
-    result = (0.0 + sumOfPopular) / (sumOfPopular + 0.0)
-    print(result)
-    print(0.0 + 1)
-    # dataPreprocessForHuya("/home/pluviophile/Documents/tmp/res.txt")
-    # dataPreprocessForDouyu("/home/pluviophile/Documents/tmp/res2.txt")
+    dataPreprocessForHuya("/home/pluviophile/Documents/tmp/res.txt")
+    dataPreprocessForDouyu("/home/pluviophile/Documents/tmp/res2.txt")
