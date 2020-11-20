@@ -13,6 +13,7 @@ def mapBynum(x):
     list2.append(int(list1[1]))
     return list2
 
+
 def mapByName(x):
     list1 = x.split(" ")
     list2 = []
@@ -23,17 +24,9 @@ def mapByName(x):
 if __name__ == "__main__":
     sumOfPeople = 1
     sumOfPopular = 1
-    # sc = SparkContext(appName="PythonStreamingHDFSWordCount", master="spark://192.168.0.110:7077")
     sc = SparkContext(appName="PythonStreamingHDFSWordCount")
     ssc = StreamingContext(sc, 30)
-
-    # compute for people
-    # lines = ssc.textFileStream("hdfs://192.168.0.110:9000/wcy1/tmp/")
-    #people = sc.textFile("/home/pluviophile/Documents/tmp/people.txt")
-    people = ssc.textFileStream("hdfs://192.168.0.110:9000/origin/people/")
-    # counts = lines.flatMap(lambda line: line.split("\n")) \
-    #     .map(lambda x: (x, 1)) \
-    #     .reduceByKey(lambda a, b: a + b)
+    people = ssc.textFileStream("hdfs://wcy-pc:9000/origin/people/")
     peopleCounts = people.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
     peopleCounts.pprint()
@@ -46,7 +39,7 @@ if __name__ == "__main__":
 
     # compute for popular
     # popu = sc.textFile("/home/pluviophile/Documents/tmp/popular.txt")
-    popu = ssc.textFileStream("hdfs://192.168.0.110:9000/origin/popular/")
+    popu = ssc.textFileStream("hdfs://wcy-pc:9000/origin/popular/")
     popuCounts = popu.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
     popuCounts.pprint()
@@ -67,9 +60,23 @@ if __name__ == "__main__":
     #     print(a)
     #     print(a[0])
     #     print(a[1])
-    meanByName.pprint()
-    meanByName.repartition(1).saveAsTextFiles("hdfs://192.168.0.110:9000/11141559/output")
+    # meanByName.pprint()
+    listOfRecord = []
+    def takeAndPrint1(time, rdd):
+        taken = rdd.take(21)
+        print("--------------------!-----------------------")
+        print("Time: %s" % time)
+        print("--------------------!-----------------------")
+        for record in taken[:20]:
+            listOfRecord.append(record)
+        if len(taken) > 20:
+            print("...")
+        print("")
+        print(listOfRecord)
+    # meanByName.repartition(1).saveAsTextFiles("hdfs://192.168.0.110:9000/11141559/output")
+    meanByName.foreachRDD(takeAndPrint1)
     # counts.foreachRDD(lambda rdd: rdd.saveAsTextFiles("hdfs://192.168.0.110:9000/wcy2/output"))
 
     ssc.start()
     ssc.awaitTermination()
+
