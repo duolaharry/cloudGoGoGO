@@ -28,11 +28,12 @@ if __name__ == "__main__":
     calculateChangePopuDateList = []  # 存放变化popu计算数据
 
     # 设置流监听，监听源为hdfs文件系统
-    sc = SparkContext(appName="PythonStreamingHDFSWordCount")
+    sc = SparkContext(appName="PythonStreamingShortTime")
     ssc = StreamingContext(sc, 30)
+    people = ssc.textFileStream("hdfs://wcy-pc:9000/origin/people/")
+    popu = ssc.textFileStream("hdfs://wcy-pc:9000/origin/popular/")
 
     # 对直播人数rdd进行处理
-    people = ssc.textFileStream("hdfs://wcy-pc:9000/origin/people/")
     peopleCounts = people.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
 
@@ -45,10 +46,9 @@ if __name__ == "__main__":
             record = taken[0]
             print(["people", record[1]])
 
-    peopleCounts.reduceByKey(1).foreachRDD(outputpeopleCounts)
+    peopleCounts.repartition(1).foreachRDD(outputpeopleCounts)
 
     # 对直播人气rdd进行处理。
-    popu = ssc.textFileStream("hdfs://wcy-pc:9000/origin/popular/")
     popuCounts = popu.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
             record = taken[0]
             print(["popu", record[1]])
 
-    popuCounts.reduceByKey(1).foreachRDD(outputpopuCounts)
+    popuCounts.repartition(1).foreachRDD(outputpopuCounts)
 
     # 计算每个直播间的平均热度
     popularForEachRoom = peopleCounts.union(popuCounts).reduceByKey(lambda a, b: (0.0 + float(b)) / a)
@@ -75,7 +75,7 @@ if __name__ == "__main__":
             record = taken[0]
             print(record[1])
 
-    # popularForEachRoom.repartition(1).foreachRDD(calculateForMean)
+    popularForEachRoom.repartition(1).foreachRDD(calculateForMean)
 
     # 计算各个板块人数的变更情况
     peopleChange = people.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
@@ -158,17 +158,30 @@ if __name__ == "__main__":
         for record in currentPopuEachName:
             historyOfPopuEachName.append(record)
         print(calculateChangePopuDateList)
-        print()
 
     popuChange.repartition(1).foreachRDD(calculateForPopuChange)
 
+    # 计算各个板块每个直播间的平均热度
     # 为了数据分离，有利于后续数据处理，这里重新创建一个新的rdd
-    # peopleWithName = people.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
-    #     .reduceByKey(lambda a, b: a + b)
-    # popuWithName = popu.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
-    #     .reduceByKey(lambda a, b: a + b)
-    # meanByName = popuWithName.join(peopleWithName)
-    # meanByName.repartition(1).foreachRDD(calculateForChange)
+    peopleWithName = people.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
+        .reduceByKey(lambda a, b: a + b)
+    popuWithName = popu.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
+        .reduceByKey(lambda a, b: a + b)
+    meanByName = popuWithName.join(peopleWithName)
+
+    def calculateForNameMean(time, rdd):
+        print("-------------------------------------------")
+        print("calculateForNameMean Time: %s" % time)
+        print("-------------------------------------------")
+        taken = rdd.take(20)
+        nameMeanList = []
+        for record in taken[:19]:
+            tmplist = [record[0], (0.0 + record[1][0])/record[1][1]]
+            nameMeanList.append(tmplist)
+        print(nameMeanList)
+        print()
+
+    meanByName.repartition(1).foreachRDD(calculateForNameMean)
 
     # 开始监听
     ssc.start()
