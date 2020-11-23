@@ -34,11 +34,11 @@ if __name__ == "__main__":
     huyaPeopleCounts = huyaPeople.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
 
-
     def outputDouyuPeopleCounts(time, rdd):
-        print("-------------------------------------------")
-        print("outputpopuCounts Time: %s" % time)
-        print("-------------------------------------------")
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
@@ -47,9 +47,10 @@ if __name__ == "__main__":
     douyuPeopleCounts.repartition(1).foreachRDD(outputDouyuPeopleCounts)
 
     def outputHuyaPeopleCounts(time, rdd):
-        print("-------------------------------------------")
-        print("outputpopuCounts Time: %s" % time)
-        print("-------------------------------------------")
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
@@ -64,9 +65,10 @@ if __name__ == "__main__":
         .reduceByKey(lambda a, b: a + b)
 
     def outputDouyuPopuCounts(time, rdd):
-        print("-------------------------------------------")
-        print("outputpopuCounts Time: %s" % time)
-        print("-------------------------------------------")
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
@@ -75,16 +77,77 @@ if __name__ == "__main__":
     douyuPopuCounts.repartition(1).foreachRDD(outputDouyuPopuCounts)
 
     def outputHuyaPopuCounts(time, rdd):
-        print("-------------------------------------------")
-        print("outputpopuCounts Time: %s" % time)
-        print("-------------------------------------------")
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
             print(["虎牙", "popu", record[1]])
-            print()
 
     huyaPopuCounts.repartition(1).foreachRDD(outputHuyaPopuCounts)
+
+    # 对板块的直播人数rdd进行处理
+    douyuPeopleCountsForeach = douyuPeople.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
+        .reduceByKey(lambda a, b: a + b)
+    huyaPeopleCountsForeach = huyaPeople.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
+        .reduceByKey(lambda a, b: a + b)
+
+    def outputDouyuPeopleCountsForeach(time, rdd):
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
+        taken = rdd.take(21)
+        if len(taken) > 0:
+            for record in taken[:20]:
+                print(["斗鱼", "people", record[0], record[1]])
+
+    douyuPeopleCountsForeach.repartition(1).foreachRDD(outputDouyuPeopleCountsForeach)
+
+    def outputHuyaPeopleCountsForeach(time, rdd):
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
+        taken = rdd.take(21)
+        if len(taken) > 0:
+            for record in taken[:20]:
+                print(["虎牙", "people", record[0], record[1]])
+
+    huyaPeopleCountsForeach.repartition(1).foreachRDD(outputHuyaPeopleCountsForeach)
+
+    # 对板块的直播人气rdd进行处理。
+    douyuPopuCountsForeach = douyuPopu.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
+        .reduceByKey(lambda a, b: a + b)
+    huyaPopuCountsForeach = huyaPopu.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
+        .reduceByKey(lambda a, b: a + b)
+
+    def outputDouyuPopuCountsForeach(time, rdd):
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
+        taken = rdd.take(21)
+        if len(taken) > 0:
+            for record in taken[:20]:
+                print(["斗鱼", "popu", record[0], record[1]])
+
+    douyuPopuCountsForeach.repartition(1).foreachRDD(outputDouyuPopuCountsForeach)
+
+    def outputHuyaPopuCountsForeach(time, rdd):
+        s = "Time: %s" % time
+        # print("-------------------------------------------")
+        # print("outputpopuCounts Time: %s" % time)
+        # print("-------------------------------------------")
+        taken = rdd.take(21)
+        if len(taken) > 0:
+            for record in taken[:20]:
+                print(["虎牙", "popu", record[0], record[1]])
+            print()
+
+    huyaPopuCountsForeach.repartition(1).foreachRDD(outputHuyaPopuCountsForeach)
 
     # 开始监听
     ssc.start()
