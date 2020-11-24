@@ -47,7 +47,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["allpeople", "people", record[1]])
-            item = "allPeople " + "people " + str(record[1])
+            item = "allpeople " + "people " + str(record[1])
             data.append(item)
 
 
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["allpopu", "popu", record[1]])
-            item = "allPopu " + "popu " + str(record[1])
+            item = "allpopu " + "popu " + str(record[1])
             data.append(item)
 
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["allmean", record[1]])
-            item = "allMean " + str(record[1])
+            item = "allmean " + str(record[1])
             data.append(item)
 
 
@@ -131,7 +131,7 @@ if __name__ == "__main__":
             historyOfPeopleEachName.append(record)
         print(calculateChangePeopleDateList)
         for record in calculateChangePeopleDateList:
-            item = "peopleChange " + str(record[0]) + " " + str(record[1])
+            item = "peoplechange " + str(record[0]) + " " + str(record[1])
             data.append(item)
 
 
@@ -178,7 +178,7 @@ if __name__ == "__main__":
             historyOfPopuEachName.append(record)
         print(calculateChangePopuDateList)
         for record in calculateChangePopuDateList:
-            item = "popuChange " + str(record[0]) + " " + str(record[1])
+            item = "popuchange " + str(record[0]) + " " + str(record[1])
             data.append(item)
         # [("PopuChange",record[0],record[1])]
 
@@ -205,7 +205,7 @@ if __name__ == "__main__":
             nameMeanList.append(tmplist)
         print(nameMeanList)
         for record in nameMeanList:
-            item = "nameMean " + str(record[0]) + " " + str(record[1])
+            item = "namemean " + str(record[0]) + " " + str(record[1])
             data.append(item)
         # [("nameMean",record[0],record[1])]
         file = open("/home/pluviophile/Documents/tmp/longtime/output1/shortOutput.txt", "w", encoding='utf-8')
