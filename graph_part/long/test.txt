@@ -1,0 +1,20 @@
+allpeople douyu 111
+allpeople huya 222
+allpopu douyu 333
+allpopu huya 444
+
+clear
+
+eachpeople douyu lol 11
+eachpeople douyu wzry 22
+eachpeople douyu jdqs 33
+eachpeople huya lol1 11
+eachpeople huya wzry1 22
+eachpeople huya jdqs1 33
+
+eachpopu douyu lol2 11
+eachpopu douyu wzry2 22
+eachpopu douyu jdqs2 33
+eachpopu huya lol3 11
+eachpopu huya wzry3 22
+eachpopu huya jdqs3 33
