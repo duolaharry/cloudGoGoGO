@@ -44,7 +44,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["斗鱼", "people", record[1]])
-            item = "斗鱼 " + "people " + str(record[1])
+            item = "allpeople "+"douyu " + "people " + str(record[1])
             data.append(item)
 
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["虎牙", "people", record[1]])
-            item = "虎牙 " + "people " + str(record[1])
+            item = "allpeople "+"huya " + "people " + str(record[1])
             data.append(item)
 
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["斗鱼", "popu", record[1]])
-            item = "斗鱼 " + "popu " + str(record[1])
+            item = "allpopu "+"douyu " + "popu " + str(record[1])
             data.append(item)
 
 
@@ -98,8 +98,9 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["虎牙", "popu", record[1]])
-            item = "虎牙 " + "popu " + str(record[1])
+            item = "allpopu "+"huya " + "popu " + str(record[1])
             data.append(item)
+            data.append("clear")
 
 
     huyaPopuCounts.repartition(1).foreachRDD(outputHuyaPopuCounts)
@@ -120,7 +121,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             for record in taken[:20]:
                 print(["斗鱼", "people", record[0], record[1]])
-                item = "斗鱼 " + "people " + record[0] + " " + str(record[1])
+                item = "eachpeople "+"douyu " + "people " + record[0] + " " + str(record[1])
                 data.append(item)
 
 
@@ -136,7 +137,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             for record in taken[:20]:
                 print(["虎牙", "people", record[0], record[1]])
-                item = "虎牙 " + "people " + record[0] + " " + str(record[1])
+                item = "eachpeople "+"huya " + "people " + record[0] + " " + str(record[1])
                 data.append(item)
 
 
@@ -158,7 +159,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             for record in taken[:20]:
                 print(["斗鱼", "popu", record[0], record[1]])
-                item = "斗鱼 " + "popu " + record[0] + " " + str(record[1])
+                item = "eachpopu "+"douyu " + "popu " + record[0] + " " + str(record[1])
                 data.append(item)
 
 
@@ -175,7 +176,7 @@ if __name__ == "__main__":
 
             for record in taken[:20]:
                 print(["虎牙", "popu", record[0], record[1]])
-                item = "虎牙 " + "popu " + record[0] + " " + str(record[1])
+                item = "eachpopu "+"huya " + "popu " + record[0] + " " + str(record[1])
                 data.append(item)
             file = open("/home/pluviophile/Documents/tmp/longtime/output1/longOutput.txt", "w", encoding='utf-8')
             for i in data:
