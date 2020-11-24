@@ -1,0 +1,41 @@
+allpeople people 333 1212 17:00:00
+allpeople people 123 1212 17:01:00
+allpeople people 999 1212 17:02:00
+allpeople people 567 1212 17:03:00
+allpopu popu 999999 213321 17:00:00
+allmean 3003.1 123123 17:00:00
+
+clear
+
+peoplechange lol15 9 121
+peoplechange wzry14 -8 231
+peoplechange www14 7 213
+peoplechange lol14 9 121
+peoplechange wzry13 -8 231
+peoplechange www13 7 213
+peoplechange lol13 9 121
+peoplechange wzry12 -8 231
+peoplechange www12 7 213
+peoplechange lol12 9 121
+peoplechange wzry11 -8 231
+peoplechange www11 7 213
+peoplechange lol11 9 121
+
+popuchange lol15 9 121
+popuchange wzry14 -8 231
+popuchange www14 7 213
+popuchange lol14 9 121
+popuchange wzry13 -8 231
+popuchange www13 7 213
+popuchange lol13 9 121
+popuchange wzry12 -8 231
+popuchange www12 7 213
+popuchange lol12 9 121
+popuchange wzry11 -8 231
+popuchange www11 7 213
+popuchange lol11 9 121
+
+namemean lol1 8 123
+namemean wzry2 9 312
+namemean lol1 8 123
+namemean wzry2 9 312

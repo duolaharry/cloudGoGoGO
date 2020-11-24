@@ -3,4 +3,8 @@
 #   cat ./test.txt | head -n $COUNT | tail -n 1
 #   sleep 1
 # done
-cat ./test.txt ; echo
+while :
+do
+    cat ./test.txt ; echo
+    sleep 25
+done

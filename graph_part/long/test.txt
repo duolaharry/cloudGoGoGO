@@ -1,15 +1,15 @@
-allpeople douyu 111
-allpeople huya 222
-allpopu douyu 333
-allpopu huya 444
+allpeople douyu 21 3633 17:00:00
+allpeople huya 132 443 17:00:00
+allpopu douyu 233 565 17:00:00
+allpopu huya 244 254 17:00:00
 
 clear
 
-eachpeople douyu lol 11
+eachpeople douyu lol 124
 eachpeople douyu wzry 22
 eachpeople douyu jdqs 33
 eachpeople huya lol1 11
-eachpeople huya wzry1 22
+eachpeople huya wzry1 94
 eachpeople huya jdqs1 33
 
 eachpopu douyu lol2 11

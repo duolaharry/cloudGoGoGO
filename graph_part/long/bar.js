@@ -7,7 +7,7 @@ let chartConfigBar = {
   },
   backgroundColor: '#fff',
   title: {
-    text: '直 播 人 数',
+    text: '直 播 间 数',
     fontWeight: 'normal',
     height: '40px',
     textColor: '#ffffff'
@@ -30,7 +30,7 @@ let chartConfigBar = {
     backgroundColor: '#fff'
   },
   scaleX: {
-    values: ['总人数'],
+    values: ['总间数'],
     alpha: 0.5,
     backgroundColor: '#fff',
     borderColor: '#333',
