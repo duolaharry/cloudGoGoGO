@@ -86,6 +86,7 @@ if __name__ == "__main__":
             print(["allmean", record[1]])
             item = "allmean " + str(record[1]) + " " + str(time)
             data.append(item)
+            data.append("clear")
 
 
     popularForEachRoom.repartition(1).foreachRDD(calculateForMean)
