@@ -26,6 +26,7 @@ if __name__ == "__main__":
     currentPopuEachName = []  # 存放popu当前板块数据
     calculateChangePeopleDateList = []  # 存放变化people计算数据
     calculateChangePopuDateList = []  # 存放变化popu计算数据
+    data = []  # 保存输出流
 
     # 设置流监听，监听源为hdfs文件系统
     sc = SparkContext(appName="PythonStreamingShortTime")
@@ -37,6 +38,7 @@ if __name__ == "__main__":
     peopleCounts = people.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
 
+
     def outputpeopleCounts(time, rdd):
         print("-------------------------------------------")
         print("outputpeopleCounts Time: %s" % time)
@@ -44,13 +46,17 @@ if __name__ == "__main__":
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
-            print(["people", record[1]])
+            print(["allpeople", "people", record[1]])
+            item = "allPeople " + "people " + str(record[1])
+            data.append(item)
+
 
     peopleCounts.repartition(1).foreachRDD(outputpeopleCounts)
 
     # 对直播人气rdd进行处理。
     popuCounts = popu.map(lambda x: (mapBynum(x)[0], mapBynum(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
+
 
     def outputpopuCounts(time, rdd):
         print("-------------------------------------------")
@@ -59,12 +65,16 @@ if __name__ == "__main__":
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
-            print(["popu", record[1]])
+            print(["allpopu", "popu", record[1]])
+            item = "allPopu " + "popu " + str(record[1])
+            data.append(item)
+
 
     popuCounts.repartition(1).foreachRDD(outputpopuCounts)
 
     # 计算每个直播间的平均热度
     popularForEachRoom = peopleCounts.union(popuCounts).reduceByKey(lambda a, b: (0.0 + float(b)) / a)
+
 
     def calculateForMean(time, rdd):
         print("-------------------------------------------")
@@ -73,13 +83,17 @@ if __name__ == "__main__":
         taken = rdd.take(1)
         if len(taken) > 0:
             record = taken[0]
-            print(record[1])
+            print(["allmean", record[1]])
+            item = "allMean " + str(record[1])
+            data.append(item)
+
 
     popularForEachRoom.repartition(1).foreachRDD(calculateForMean)
 
     # 计算各个板块人数的变更情况
     peopleChange = people.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
+
 
     def calculateForPeopleChange(time, rdd):
         print("-------------------------------------------")
@@ -98,9 +112,9 @@ if __name__ == "__main__":
                 historyOfPeopleEachName.append(record)
         for i in historyOfPeopleEachName:
             tmpHistoryName.append(i[0])
-        for i in range(0,len(currentPeopleEachName)):
+        for i in range(0, len(currentPeopleEachName)):
             if currentPeopleEachName[i][0] in tmpHistoryName:
-                for j in range(0,len(historyOfPeopleEachName)):
+                for j in range(0, len(historyOfPeopleEachName)):
                     if currentPeopleEachName[i][0] == historyOfPeopleEachName[j][0]:
                         tmplist = [currentPeopleEachName[i][0],
                                    int(currentPeopleEachName[i][1]) - int(historyOfPeopleEachName[j][1])]
@@ -110,18 +124,23 @@ if __name__ == "__main__":
                 calculateChangePeopleDateList.append(tmplist)
         for i in range(0, len(historyOfPeopleEachName)):
             if historyOfPeopleEachName[i][0] not in tmpCurrntName:
-                tmplist = [historyOfPeopleEachName[i][0], 0-int(historyOfPeopleEachName[i][1])]
+                tmplist = [historyOfPeopleEachName[i][0], 0 - int(historyOfPeopleEachName[i][1])]
                 calculateChangePeopleDateList.append(tmplist)
         historyOfPeopleEachName.clear()
         for record in currentPeopleEachName:
             historyOfPeopleEachName.append(record)
         print(calculateChangePeopleDateList)
+        for record in calculateChangePeopleDateList:
+            item = "peopleChange " + str(record[0]) + " " + str(record[1])
+            data.append(item)
+
 
     peopleChange.repartition(1).foreachRDD(calculateForPeopleChange)
 
     # 计算各个板块人气的变更情况
     popuChange = popu.map(lambda x: (mapByName(x)[0], mapByName(x)[1])) \
         .reduceByKey(lambda a, b: a + b)
+
 
     def calculateForPopuChange(time, rdd):
         print("-------------------------------------------")
@@ -140,9 +159,9 @@ if __name__ == "__main__":
                 historyOfPopuEachName.append(record)
         for i in historyOfPopuEachName:
             tmpHistoryName.append(i[0])
-        for i in range(0,len(currentPopuEachName)):
+        for i in range(0, len(currentPopuEachName)):
             if currentPopuEachName[i][0] in tmpHistoryName:
-                for j in range(0,len(historyOfPopuEachName)):
+                for j in range(0, len(historyOfPopuEachName)):
                     if currentPopuEachName[i][0] == historyOfPopuEachName[j][0]:
                         tmplist = [currentPopuEachName[i][0],
                                    int(currentPopuEachName[i][1]) - int(historyOfPopuEachName[j][1])]
@@ -152,12 +171,17 @@ if __name__ == "__main__":
                 calculateChangePopuDateList.append(tmplist)
         for i in range(0, len(historyOfPopuEachName)):
             if historyOfPopuEachName[i][0] not in tmpCurrntName:
-                tmplist = [historyOfPopuEachName[i][0], 0-int(historyOfPopuEachName[i][1])]
+                tmplist = [historyOfPopuEachName[i][0], 0 - int(historyOfPopuEachName[i][1])]
                 calculateChangePopuDateList.append(tmplist)
         historyOfPopuEachName.clear()
         for record in currentPopuEachName:
             historyOfPopuEachName.append(record)
         print(calculateChangePopuDateList)
+        for record in calculateChangePopuDateList:
+            item = "popuChange " + str(record[0]) + " " + str(record[1])
+            data.append(item)
+        # [("PopuChange",record[0],record[1])]
+
 
     popuChange.repartition(1).foreachRDD(calculateForPopuChange)
 
@@ -169,6 +193,7 @@ if __name__ == "__main__":
         .reduceByKey(lambda a, b: a + b)
     meanByName = popuWithName.join(peopleWithName)
 
+
     def calculateForNameMean(time, rdd):
         print("-------------------------------------------")
         print("calculateForNameMean Time: %s" % time)
@@ -176,10 +201,18 @@ if __name__ == "__main__":
         taken = rdd.take(20)
         nameMeanList = []
         for record in taken[:19]:
-            tmplist = [record[0], (0.0 + record[1][0])/record[1][1]]
+            tmplist = [record[0], (0.0 + record[1][0]) / record[1][1]]
             nameMeanList.append(tmplist)
         print(nameMeanList)
-        print()
+        for record in nameMeanList:
+            item = "nameMean " + str(record[0]) + " " + str(record[1])
+            data.append(item)
+        # [("nameMean",record[0],record[1])]
+        file = open("/home/pluviophile/Documents/tmp/longtime/output1/shortOutput.txt", "w", encoding='utf-8')
+        for i in data:
+            file.write(i + "\n")
+        file.close()
+        data.clear()
 
     meanByName.repartition(1).foreachRDD(calculateForNameMean)
 

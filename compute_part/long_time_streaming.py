@@ -177,7 +177,7 @@ if __name__ == "__main__":
                 print(["虎牙", "popu", record[0], record[1]])
                 item = "虎牙 " + "popu " + record[0] + " " + str(record[1])
                 data.append(item)
-            file = open("/home/pluviophile/Documents/tmp/longtime/output1/output.txt", "w", encoding='utf-8')
+            file = open("/home/pluviophile/Documents/tmp/longtime/output1/longOutput.txt", "w", encoding='utf-8')
             for i in data:
                 file.write(i + "\n")
             file.close()
