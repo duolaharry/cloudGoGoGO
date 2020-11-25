@@ -23,8 +23,8 @@ class DouYu(object):
 
     def crawl(self):
         first_name = self.__get_first_name()  # 得到当前排名第一个主播姓名，用来判断循环结束
-        file_people = open('./Long/douyu/people.txt', 'w')
-        file_popular = open('./Long/douyu/popular.txt', 'w')
+        str_people = ''
+        str_popular = ''
 
         while DouYu.flag == 1:
             response = self.__get_response()
@@ -40,12 +40,14 @@ class DouYu(object):
                         break
                 self.num += 1  # 计算直播数量
                 print("{}.主播姓名:{}, 人气:{:,},直播类型:{}".format(self.num, name, hot, game))
-                file_people.write('name:{} num:1\n'.format(game))
-                file_popular.write('name:{} num:{}\n'.format(game, hot))
+                str_people += 'name:{} num:1\n'.format(game)
+                str_popular += 'name:{} num:{}\n'.format(game, hot)
             DouYu.page += 1
             print('第{}页完结'.format(DouYu.page))
-        file_people.close()
-        file_popular.close()
+        with open('./Long/douyu/people.txt', 'w') as file_people:
+            file_people.write(str_people)
+        with open('./Long/douyu/popular.txt', 'w') as file_popular:
+            file_popular.write(str_popular)
 
 
 if __name__ == '__main__':

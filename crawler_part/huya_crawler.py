@@ -1,10 +1,10 @@
 import requests
 import json
 
-file_people = open('./Long/huya/people.txt', 'w')
-file_popular = open('./Long/huya/popular.txt', 'w')
 page, count, num = 1, 0, 0
 url = "https://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&tagAll=0&page="
+str_people = ''
+str_popular = ''
 
 while True:
     res = requests.get(url+str(page))
@@ -25,10 +25,13 @@ while True:
         count += int(totalCount)
         num += 1
         print("{}.主播姓名:{}人气:{:,}".format(num, nick, int(totalCount)))
-        file_people.write('name:{} num:1\n'.format(gamename))
-        file_popular.write('name:{} num:{}\n'.format(gamename, totalCount))
+        str_people += ('name:{} num:1\n'.format(gamename))
+        str_popular += ('name:{} num:{}\n'.format(gamename, totalCount))
     print("第%s页结束" % page)
     page += 1
 
-file_people.close()
-file_popular.close()
+# 写入
+with open('./Long/huya/people.txt', 'w') as file_people:
+    file_people.write(str_people)
+with open('./Long/huya/popular.txt', 'w') as file_popular:
+    file_popular.write(str_popular)
