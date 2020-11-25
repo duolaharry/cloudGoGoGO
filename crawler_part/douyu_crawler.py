@@ -59,5 +59,6 @@ class DouYu(object):
 
 
 if __name__ == '__main__':
-    DouYu = DouYu()
-    DouYu.crawl()
+    while True:
+        DouYu = DouYu()
+        DouYu.crawl()
