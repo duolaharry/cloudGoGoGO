@@ -27,13 +27,20 @@ class DouYu(object):
         str_popular = ''
 
         while DouYu.flag == 1:
+            if self.page > 200:
+                break
             response = self.__get_response()
-            self.info = response['data']['rl']
-            for i in range(len(self.info)):
-                self.info = response['data']['rl']
-                name = self.info[i]['nn']
-                game = self.info[i]['c2name']
-                hot = int(self.info[i]['ol'])
+            info = response['data']['rl']
+            for i in range(len(info)):
+                name = info[i]['nn']
+                temp = info[i]['c2name']
+                if len(temp) == 0:
+                    temp = 'null'
+                game = ''
+                for j in range(len(temp)):
+                    if temp[j] not in [' ', ':']:
+                        game += temp[j]
+                hot = int(info[i]['ol'])
                 if self.num > 300:
                     if first_name == name:
                         self.flag = 0
@@ -42,12 +49,13 @@ class DouYu(object):
                 print("{}.主播姓名:{}, 人气:{:,},直播类型:{}".format(self.num, name, hot, game))
                 str_people += 'name:{} num:1\n'.format(game)
                 str_popular += 'name:{} num:{}\n'.format(game, hot)
-            DouYu.page += 1
+            self.page += 1
             print('第{}页完结'.format(DouYu.page))
         with open('./Long/douyu/people.txt', 'w') as file_people:
-            file_people.write(str_people)
+            file_people.write(str_people[0: len(str_people) - 1])
         with open('./Long/douyu/popular.txt', 'w') as file_popular:
-            file_popular.write(str_popular)
+            file_popular.write(str_popular[0: len(str_popular) - 1])
+        print('\n牛牛')
 
 
 if __name__ == '__main__':
