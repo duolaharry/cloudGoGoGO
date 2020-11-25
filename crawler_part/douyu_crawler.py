@@ -1,3 +1,5 @@
+import time
+
 import requests
 
 
@@ -27,7 +29,7 @@ class DouYu(object):
         str_popular = ''
 
         while DouYu.flag == 1:
-            if self.page > 200:
+            if self.page > 100:
                 break
             response = self.__get_response()
             info = response['data']['rl']
@@ -56,9 +58,13 @@ class DouYu(object):
         with open('./Long/douyu/popular.txt', 'w') as file_popular:
             file_popular.write(str_popular[0: len(str_popular) - 1])
         print('\n牛牛')
+        self.page = 1
+        self.num = 1
+        self.flag = 1
 
 
 if __name__ == '__main__':
+    DouYu = DouYu()
     while True:
-        DouYu = DouYu()
         DouYu.crawl()
+        time.sleep(30)

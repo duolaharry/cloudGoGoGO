@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     # 设置流监听，监听源为hdfs文件系统
     sc = SparkContext(appName="PythonStreamingShortTime")
-    ssc = StreamingContext(sc, 30)
+    ssc = StreamingContext(sc, 90)
     people = ssc.textFileStream("hdfs://wcy-pc:9000/origin/people/")
     popu = ssc.textFileStream("hdfs://wcy-pc:9000/origin/popular/")
 
@@ -100,12 +100,18 @@ if __name__ == "__main__":
         print("-------------------------------------------")
         print("calculateForPeopleChange Time: %s" % time)
         print("-------------------------------------------")
-        taken = rdd.take(21)
+        taken = rdd.take(501)
         currentPeopleEachName = []
         calculateChangePeopleDateList = []
         tmpHistoryName = []
         tmpCurrntName = []
-        for record in taken[:20]:
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
+        for record in taken[:10]:
             currentPeopleEachName.append(record)
             tmpCurrntName.append(record[0])
         if len(historyOfPeopleEachName) == 0:
@@ -147,12 +153,18 @@ if __name__ == "__main__":
         print("-------------------------------------------")
         print("calculateForPopuChange Time: %s" % time)
         print("-------------------------------------------")
-        taken = rdd.take(20)
+        taken = rdd.take(501)
         currentPopuEachName = []
         calculateChangePopuDateList = []
         tmpHistoryName = []
         tmpCurrntName = []
-        for record in taken[:19]:
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
+        for record in taken[:10]:
             currentPopuEachName.append(record)
             tmpCurrntName.append(record[0])
         if len(historyOfPopuEachName) == 0:
@@ -199,9 +211,15 @@ if __name__ == "__main__":
         print("-------------------------------------------")
         print("calculateForNameMean Time: %s" % time)
         print("-------------------------------------------")
-        taken = rdd.take(20)
+        taken = rdd.take(501)
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
         nameMeanList = []
-        for record in taken[:19]:
+        for record in taken[:10]:
             tmplist = [record[0], (0.0 + record[1][0]) / record[1][1]]
             nameMeanList.append(tmplist)
         print(nameMeanList)

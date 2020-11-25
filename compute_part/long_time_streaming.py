@@ -117,9 +117,15 @@ if __name__ == "__main__":
         # print("-------------------------------------------")
         # print("outputpopuCounts Time: %s" % time)
         # print("-------------------------------------------")
-        taken = rdd.take(21)
+        taken = rdd.take(501)
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
         if len(taken) > 0:
-            for record in taken[:20]:
+            for record in taken[:10]:
                 print(["斗鱼", "people", record[0], record[1]])
                 item = "eachpeople "+"douyu " + "people " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
@@ -133,9 +139,15 @@ if __name__ == "__main__":
         # print("-------------------------------------------")
         # print("outputpopuCounts Time: %s" % time)
         # print("-------------------------------------------")
-        taken = rdd.take(21)
+        taken = rdd.take(501)
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
         if len(taken) > 0:
-            for record in taken[:20]:
+            for record in taken[:10]:
                 print(["虎牙", "people", record[0], record[1]])
                 item = "eachpeople "+"huya " + "people " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
@@ -155,9 +167,15 @@ if __name__ == "__main__":
         # print("-------------------------------------------")
         # print("outputpopuCounts Time: %s" % time)
         # print("-------------------------------------------")
-        taken = rdd.take(21)
+        taken = rdd.take(501)
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
         if len(taken) > 0:
-            for record in taken[:20]:
+            for record in taken[:10]:
                 print(["斗鱼", "popu", record[0], record[1]])
                 item = "eachpopu "+"douyu " + "popu " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
@@ -171,10 +189,16 @@ if __name__ == "__main__":
         # print("-------------------------------------------")
         # print("outputpopuCounts Time: %s" % time)
         # print("-------------------------------------------")
-        taken = rdd.take(21)
+        taken = rdd.take(501)
+        for i in range(0,len(taken)-1):
+            for j in range(i+1,len(taken)):
+                if taken[i][1] < taken[j][1]:
+                    tmptaken = taken[i]
+                    taken[i] = taken[j]
+                    taken[j] = tmptaken
         if len(taken) > 0:
 
-            for record in taken[:20]:
+            for record in taken[:10]:
                 print(["虎牙", "popu", record[0], record[1]])
                 item = "eachpopu "+"huya " + "popu " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)

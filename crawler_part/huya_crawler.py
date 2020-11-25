@@ -1,3 +1,5 @@
+import time
+
 import requests
 
 
@@ -13,7 +15,7 @@ def run():
         artists = res['data']['datas']
 
         # 如果响应为空的话，代表遍历结束，数据分析打印
-        if artists is None or artists == [] or page > 200:
+        if artists is None or artists == [] or page > 100:
             break
 
         for i in artists:
@@ -44,3 +46,4 @@ def run():
 if __name__ == '__main__':
     while True:
         run()
+        time.sleep(30)
