@@ -1,0 +1,10 @@
+name:王者荣耀 num:75145770
+name:颜值 num:63640091
+name:英雄联盟 num:49773127
+name:绝地求生 num:43353065
+name:和平精英 num:35387130
+name:DNF num:22240822
+name:交友 num:20720465
+name:天刀手游 num:19429925
+name:DOTA2 num:17644436
+name:原神 num:14463610

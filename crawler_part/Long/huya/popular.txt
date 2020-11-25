@@ -1,0 +1,10 @@
+name:王者荣耀 num:176608748
+name:星秀 num:164862453
+name:英雄联盟 num:141189202
+name:交友 num:133682206
+name:和平精英 num:75661249
+name:绝地求生 num:53626080
+name:lol云顶之弈 num:41323083
+name:颜值 num:32316420
+name:一起看 num:26804549
+name:天涯明月刀手游 num:26060736

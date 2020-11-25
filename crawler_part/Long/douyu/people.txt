@@ -1,0 +1,10 @@
+name:王者荣耀 num:2972
+name:英雄联盟 num:2222
+name:绝地求生 num:1415
+name:魔兽世界 num:1114
+name:和平精英 num:1094
+name:颜值 num:1061
+name:原神 num:728
+name:lol云顶之弈 num:558
+name:DNF num:491
+name:一起看 num:444
