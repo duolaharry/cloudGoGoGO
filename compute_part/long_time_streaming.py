@@ -21,7 +21,7 @@ def mapByName(x):
 if __name__ == "__main__":
     # 设置流监听，监听源为hdfs文件系统
     sc = SparkContext(appName="PythonStreamingLongTime")
-    ssc = StreamingContext(sc, 30)
+    ssc = StreamingContext(sc, 90)
     douyuPeople = ssc.textFileStream("hdfs://wcy-pc:9000/longtime/douyu/people/")
     douyuPopu = ssc.textFileStream("hdfs://wcy-pc:9000/longtime/douyu/popular/")
     huyaPeople = ssc.textFileStream("hdfs://wcy-pc:9000/longtime/huya/people/")
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["斗鱼", "people", record[1]])
-            item = "allpeople "+"douyu " + "people " + str(record[1]) + " " + str(time)
+            item = "allpeople "+"douyu " + str(record[1]) + " " + str(time)
             data.append(item)
 
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["虎牙", "people", record[1]])
-            item = "allpeople "+"huya " + "people " + str(record[1]) + " " + str(time)
+            item = "allpeople "+"huya " + str(record[1]) + " " + str(time)
             data.append(item)
 
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["斗鱼", "popu", record[1]])
-            item = "allpopu "+"douyu " + "popu " + str(record[1]) + " " + str(time)
+            item = "allpopu "+"douyu " + str(record[1]) + " " + str(time)
             data.append(item)
 
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             record = taken[0]
             print(["虎牙", "popu", record[1]])
-            item = "allpopu "+"huya " + "popu " + str(record[1]) + " " + str(time)
+            item = "allpopu "+"huya " + str(record[1]) + " " + str(time)
             data.append(item)
             data.append("clear")
 
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             for record in taken[:10]:
                 print(["斗鱼", "people", record[0], record[1]])
-                item = "eachpeople "+"douyu " + "people " + record[0] + " " + str(record[1]) + " " + str(time)
+                item = "eachpeople "+"douyu " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
 
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             for record in taken[:10]:
                 print(["虎牙", "people", record[0], record[1]])
-                item = "eachpeople "+"huya " + "people " + record[0] + " " + str(record[1]) + " " + str(time)
+                item = "eachpeople "+"huya " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
 
 
@@ -177,7 +177,7 @@ if __name__ == "__main__":
         if len(taken) > 0:
             for record in taken[:10]:
                 print(["斗鱼", "popu", record[0], record[1]])
-                item = "eachpopu "+"douyu " + "popu " + record[0] + " " + str(record[1]) + " " + str(time)
+                item = "eachpopu "+"douyu " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
 
 
@@ -200,9 +200,9 @@ if __name__ == "__main__":
 
             for record in taken[:10]:
                 print(["虎牙", "popu", record[0], record[1]])
-                item = "eachpopu "+"huya " + "popu " + record[0] + " " + str(record[1]) + " " + str(time)
+                item = "eachpopu "+"huya " + record[0] + " " + str(record[1]) + " " + str(time)
                 data.append(item)
-            file = open("/home/pluviophile/Documents/tmp/longtime/output1/longOutput.txt", "w", encoding='utf-8')
+            file = open("./longOutput.txt", "w", encoding='utf-8')
             for i in data:
                 file.write(i + "\n")
             file.close()

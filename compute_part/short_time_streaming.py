@@ -227,7 +227,7 @@ if __name__ == "__main__":
             item = "namemean " + str(record[0]) + " " + str(record[1]) + " " + str(time)
             data.append(item)
         # [("nameMean",record[0],record[1])]
-        file = open("/home/pluviophile/Documents/tmp/longtime/output1/shortOutput.txt", "w", encoding='utf-8')
+        file = open("./shortOutput.txt", "w", encoding='utf-8')
         for i in data:
             file.write(i + "\n")
         file.close()

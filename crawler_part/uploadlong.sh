@@ -19,5 +19,5 @@ do
 	$hdfs -put -f ./Long/douyu/popular.txt /longtime/douyu/popular/$tmp2
 	$hdfs -put -f ./Long/huya/people.txt /longtime/huya/people/$tmp1
 	$hdfs -put -f ./Long/huya/popular.txt /longtime/huya/popular/$tmp2
-	sleep 20
+	sleep 80
 done
