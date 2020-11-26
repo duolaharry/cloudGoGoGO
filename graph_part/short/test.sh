@@ -1,2 +1,6 @@
 #!/bin/bash
-cat ./test.txt ; echo
+while :
+do
+    cat ./test.txt
+    sleep 90
+done
