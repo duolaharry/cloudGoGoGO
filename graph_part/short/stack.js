@@ -2,7 +2,7 @@ let chartConfigStack = {
   type: 'bar',
   stacked: true,
   title: {
-    text: '直播间人数最新变动图',
+    text: '直播间数最新变动图',
     color: '#5D7D9A',
     adjustLayout: true
   },
@@ -55,7 +55,7 @@ let chartConfigStack = {
       lineColor: '#212121',
       lineWidth: '2px'
     }
-    
+
   },
   tooltip: {
     text: '%v',
@@ -67,7 +67,7 @@ let chartConfigStack = {
   },
   series: [
     {
-      text: '人数变动值',
+      text: '直播间数变动值',
       values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       backgroundColor: '#3290be',
       stack: 1

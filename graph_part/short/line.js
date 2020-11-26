@@ -4,7 +4,7 @@ let chartConfigLine = {
       fontSize: '14px'
     },
     title: {
-      text: '总直播人气变化图',
+      text: '总直播间数变化图',
       color: '#5D7D9A',
 
       _padding: '30 0 0 35',
@@ -73,7 +73,7 @@ let chartConfigLine = {
     scaleY: {
       // scale label with unicode character
       label: {
-        text: '人气值'
+        text: '人数'
       },
       values: '0:100:20'
     },
@@ -89,7 +89,7 @@ let chartConfigLine = {
     },
     series: [
       {
-        text: '人气',
+        text: '人数',
         // plot values
         values: [0,0,0,0,0,0,0,0,0,0,0],
         lineColor: '#3290be',

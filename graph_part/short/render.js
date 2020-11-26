@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://192.168.1.106/ws/");
+var ws = new WebSocket("ws://192.168.0.121/ws/");
 
 ws.onopen = function(event) {
     zingchart.render({
@@ -59,7 +59,7 @@ ws.onmessage = function(event) {
             max_val = parseInt(arr[2], 10);
         }
         labels_x[labels_x.length - 1] = arr[4];
-        
+
         max_val = parseInt(max_val * 1.1, 10);
         var step = parseInt(max_val / 5, 10);
         chartConfigLine.scaleY.values = "0:" + max_val.toString() + ":" + step.toString();
@@ -86,7 +86,7 @@ ws.onmessage = function(event) {
             max_val = parseInt(arr[2], 10);
         }
         labels_x[labels_x.length - 1] = arr[4];
-        
+
         max_val = parseInt(max_val * 1.1, 10);
         var step = parseInt(max_val / 5, 10);
         chartConfigLine1.scaleY.values = "0:" + max_val.toString() + ":" + step.toString();
@@ -113,7 +113,7 @@ ws.onmessage = function(event) {
             max_val = parseInt(arr[1], 10);
         }
         labels_x[labels_x.length - 1] = arr[3];
-        
+
         max_val = parseInt(max_val * 1.1, 10);
         var step = parseInt(max_val / 5, 10);
         chartConfigLine2.scaleY.values = "0:" + max_val.toString() + ":" + step.toString();
@@ -126,9 +126,9 @@ ws.onmessage = function(event) {
         });
     } else if (arr[0] == "clear") {
         for (var i = 0; i < 10; i++) {
-            chartConfigStack.scaleX[i] = '';
+            chartConfigStack.scaleX.labels[i] = '';
             chartConfigStack.series[0].values[i] = 0;
-            chartConfigStack1.scaleX[i] = '';
+            chartConfigStack1.scaleX.labels[i] = '';
             chartConfigStack1.series[0].values[i] = 0;
         }
         chartConfigStack2.series[0].values = [];

@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://192.168.1.106/ws/");
+var ws = new WebSocket("ws://192.168.0.121/ws/");
 
 ws.onopen = function(event) {
     zingchart.render({

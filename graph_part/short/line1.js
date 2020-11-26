@@ -4,9 +4,9 @@ let chartConfigLine1 = {
       fontSize: '14px'
     },
     title: {
-      text: '总直播间数量变化图',
+      text: '总人气变化图',
       color: '#5D7D9A',
-    
+
       _padding: '30 0 0 35',
       fontSize: '30px'
     },
@@ -89,7 +89,7 @@ let chartConfigLine1 = {
     },
     series: [
       {
-        text: '直播间数量',
+        text: '人气值',
         // plot values
         values: [0,0,0,0,0,0,0,0,0,0,0],
         lineColor: '#3290be',
