@@ -1,3 +1,0 @@
-name:aa popular:2 9999
-name:bb popular:33
-name:dd popular:11
