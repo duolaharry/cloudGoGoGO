@@ -10,6 +10,10 @@ long模式：做两个平台间的对比分析
 
 short模式：做单个平台内的自身分析
 
+本小组的ppt演示是通过exe进行，工程文件（14-直播相关数据.fs)是由Focusky进行编辑。
+
+进入exe后，与ppt一样，按方向键的→与↓翻到下一页，←和↑翻到上一页。点击鼠标也能进行切换，但在视频播放页面鼠标点击屏幕是控制视频的播放与暂停的。因此建议使用方向键进行ppt播放控制。同时把鼠标移到屏幕最下方会有一些播放的控制面板细节。最后按ESC可以退出全屏播放。有任何问题欢迎随时联系组长，组长的邮箱是1041219412@qq.com，同时组长也有李传艺老师的微信。当然，有问题也可以百度或者谷歌。
+
 ## 项目结构
 
 code
@@ -20,7 +24,6 @@ code
 │   ├── shortOutput.txt
 │   └── short_time_streaming.py
 ├── crawler_part
-│   ├── dataPreprocess.py
 │   ├── douyu_crawler.py
 │   ├── huya_crawler.py
 │   ├── Long
